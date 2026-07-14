@@ -3,6 +3,8 @@ import helmet from 'helmet';
 import cors from 'cors';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
+import { notFoundHandler } from './core/middleware/not-found.js';
+import { errorHandler } from './core/middleware/error-handler.js';
 
 import routes from './routes/index.js';
 
@@ -17,5 +19,9 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use('/api/v1', routes);
+
+app.use(notFoundHandler);
+
+app.use(errorHandler);
 
 export default app;
